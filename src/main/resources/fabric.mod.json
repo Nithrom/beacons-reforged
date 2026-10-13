@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "beaconsreforged",
+	"version": "${version}",
+	"name": "Beacons Reforged",
+	"description": "Beacons portables y más potentes. Modo vanilla (solo portable) o full (puntos, niveles y nuevos poderes).",
+	"authors": [
+		"CereWare"
+	],
+	"license": "LGPL-3.0-only",
+	"icon": "assets/beaconsreforged/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.cereware.beaconsreforged.BeaconsReforged"
+		],
+		"client": [
+			"com.cereware.beaconsreforged.client.BeaconsReforgedClient"
+		],
+		"modmenu": [
+			"com.cereware.beaconsreforged.client.ModMenuIntegration"
+		]
+	},
+	"mixins": [
+		"beaconsreforged.mixins.json",
+		{
+			"config": "beaconsreforged.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

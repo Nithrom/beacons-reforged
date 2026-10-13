@@ -1,0 +1,14 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:single",
+      "resource": "minecraft:mob_effect/luck",
+      "sprite": "beaconsreforged:mob_effect/luck"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "minecraft:mob_effect/haste",
+      "sprite": "beaconsreforged:mob_effect/haste"
+    }
+  ]
+}
