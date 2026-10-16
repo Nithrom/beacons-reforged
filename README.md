@@ -1,24 +1,40 @@
-# Beacons Reforged (CereWare)
+# Beacons Reforged
 
-Mod Fabric para Minecraft 26.3 que hace los beacons **portables** y, en modo full, mucho más potentes.
-Requiere **Fabric API**. Java 25.
+Fabric mod for **Minecraft 26.3+** that makes beacons **portable** and, in full mode, much more powerful.
 
-## Cómo se usa
-1. Coloca un beacon sobre una pirámide (3x3 a 9x9) y abre su menú.
-2. Pulsa **Consumir pirámide** (y confirma): la pirámide se convierte en tierra y el beacon guarda su nivel.
-3. Rompe el beacon y llévatelo. **Clic derecho al aire** con él en la mano para elegir poderes.
-4. Pulsa **C** y mete el beacon en su hueco, o haz **Shift + clic** sobre él en tu inventario (E): sus poderes se aplican mientras lo llevas.
-5. Cambio rápido: con otro beacon en la mano, **agáchate + clic derecho al aire** y se intercambia con el equipado.
+📦 Download: [Modrinth](https://modrinth.com/mod/beacons-reforged)
 
-## Modos (`config/beaconsreforged.json` → `mode`)
-- **vanilla**: el beacon funciona como el normal (primario + secundario), solo que portable.
-- **full** (por defecto): el tamaño de la pirámide desbloquea poderes, su material da puntos
-  (hierro 2 · oro 3 · esmeralda 4 · diamante 5 · netherita 8) y el pago sube el nivel máximo (I-V) de forma permanente.
-  Poderes extra: Suerte/Luck (más Fortuna y Botín), Alcance y una Prisa que no acelera la animación.
+## How it works
+1. Place a beacon on a pyramid (3x3 to 9x9) and open its menu.
+2. Press **Consume pyramid** and confirm: the pyramid turns into dirt and the beacon stores its level.
+3. Break the beacon and take it with you. **Right-click the air** with it in your hand to choose powers.
+4. Press **C** and put the beacon in its slot, or **shift-click** it in your inventory. Its powers apply while it's equipped.
+5. Quick swap: with another beacon in your hand, **sneak + right-click the air** to swap it with the equipped one.
+
+## Modes (`config/beaconsreforged.json` → `mode`)
+- **vanilla**: the beacon works like the normal one (primary + secondary), just portable.
+- **full** (default):
+  - Pyramid size unlocks powers.
+  - The pyramid material gives points: iron 2 · gold 3 · emerald 4 · diamond 5 · netherite 8.
+  - Paying in the beacon permanently raises each effect's max level (I–V).
+  - Extra powers: **Luck** (extra Fortune and Looting), **Reach** (blocks and attacks), and a **Haste** that speeds up mining without speeding up the swing animation (only with the right tool).
 
 ## Config
 `mode`, `consumedBlock`, `showConsumeConfirmation`, `keepBeaconOnDeath`, `luckTotalCap`,
-`hasteMiningMultipliers`, `maxLevelPerEffect`. El servidor envía su config a los clientes al entrar.
+`hasteMiningMultipliers`, `maxLevelPerEffect`.
+Editable in game; the server sends its config to clients when they join.
 
-## Licencia
-LGPL-3.0-only (ver `LICENSE` y `COPYING`). © CereWare
+## Compatibility
+Shares the Relics screen (key C) with [Conduit Reforged](https://github.com/Nithrom/Conduit-Reforged) and [Totem Slot](https://github.com/Nithrom/Totem-Slot).
+
+## Requirements
+- Fabric Loader + Fabric API
+- Required on both client and server
+
+## Building
+This mod depends on [Relic Slots](https://github.com/Nithrom/Relic-Slots), which is bundled into the jar.
+Clone it next to this repo, in a folder named `CereWare Slots`, then run: ./gradlew build
+Requires JDK 25.
+
+## License
+LGPL-3.0-only (see `LICENSE` and `COPYING`). © CereWare
