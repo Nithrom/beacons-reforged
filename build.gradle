@@ -32,6 +32,10 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
+	// CereWare Slots: librería común (tecla C). Se incluye dentro del .jar (jar-in-jar).
+	implementation "com.cereware:cereware-slots:${project.cereware_slots_version}"
+	include "com.cereware:cereware-slots:${project.cereware_slots_version}"
+
 	// Integración opcional con Mod Menu (botón "Configurar"); el mod funciona sin él
 	compileOnly("com.terraformersmc:modmenu:21.0.0") { transitive = false }
 }

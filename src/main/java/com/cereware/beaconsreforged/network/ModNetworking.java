@@ -2,7 +2,6 @@ package com.cereware.beaconsreforged.network;
 
 import com.cereware.beaconsreforged.full.FullBeacon;
 import com.cereware.beaconsreforged.pyramid.PyramidConsumer;
-import com.cereware.beaconsreforged.portable.PortableBeacon;
 import com.cereware.beaconsreforged.config.ModConfig;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.network.chat.Component;
@@ -46,9 +45,6 @@ public final class ModNetworking {
 			(payload, context) -> FullBeacon.setLevel(context.player(), payload.index(), payload.level()));
 		ServerPlayNetworking.registerGlobalReceiver(UnlockLevelPayload.TYPE,
 			(payload, context) -> FullBeacon.unlock(context.player()));
-		PayloadTypeRegistry.serverboundPlay().register(OpenBeaconSlotPayload.TYPE, OpenBeaconSlotPayload.CODEC);
-		ServerPlayNetworking.registerGlobalReceiver(OpenBeaconSlotPayload.TYPE,
-			(payload, context) -> PortableBeacon.openSlotMenu(context.player()));
 		ServerPlayNetworking.registerGlobalReceiver(ConsumePyramidPayload.TYPE,
 			(payload, context) -> PyramidConsumer.handleConsume(context.player(), payload.containerId()));
 	}

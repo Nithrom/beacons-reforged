@@ -5,7 +5,10 @@ import com.cereware.beaconsreforged.config.ModConfig;
 import com.cereware.beaconsreforged.registry.ModComponents;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
-import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import com.cereware.slots.api.CerewareSlotsApi;
+import com.cereware.slots.api.SlotDefinition;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.resources.Identifier;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import com.cereware.beaconsreforged.full.FullBeaconMenu;
 import net.minecraft.network.chat.Component;
@@ -18,12 +21,15 @@ import net.minecraft.world.inventory.BeaconMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.gamerules.GameRules;
 
-/** Slot propio del beacon equipado (guardado en el jugador) y apertura de menús. */
+/** Hueco del beacon (librería CereWare Slots, tecla C) y apertura de menús. */
 public final class PortableBeacon {
-	/** Beacon equipado en el slot propio. copyOnDeath: si no se conserva, se suelta antes en AFTER_DEATH. */
-	public static final AttachmentType<ItemStack> EQUIPPED = AttachmentRegistry.create(BeaconsReforged.id("equipped_beacon"),
+	/** Identificador del hueco en CereWare Slots. */
+	public static final Identifier SLOT = BeaconsReforged.id("beacon");
+
+	/** Hueco antiguo (1.0.0). Solo se usa para migrar al hueco de CereWare Slots al entrar. */
+	@Deprecated
+	public static final AttachmentType<ItemStack> LEGACY_EQUIPPED = AttachmentRegistry.create(BeaconsReforged.id("equipped_beacon"),
 		b -> b.persistent(ItemStack.OPTIONAL_CODEC).copyOnDeath());
 
 	private PortableBeacon() {}
@@ -33,18 +39,11 @@ public final class PortableBeacon {
 	}
 
 	public static ItemStack getEquipped(Player player) {
-		ItemStack s = player.getAttached(EQUIPPED);
-		return s == null ? ItemStack.EMPTY : s;
+		return CerewareSlotsApi.getStack(player, SLOT);
 	}
 
 	public static void setEquipped(Player player, ItemStack stack) {
-		if (stack.isEmpty()) player.removeAttached(EQUIPPED);
-		else player.setAttached(EQUIPPED, stack);
-	}
-
-	public static void openSlotMenu(ServerPlayer player) {
-		player.openMenu(new SimpleMenuProvider((id, inv, p) -> new BeaconSlotMenu(id, inv, new EquippedBeaconContainer(p)),
-			Component.translatable("gui.beaconsreforged.slot_title")));
+		CerewareSlotsApi.setStack(player, SLOT, stack);
 	}
 
 	/** Menú de selección de poderes del beacon que se tiene en la mano (reutiliza el menú vanilla). */
@@ -65,6 +64,8 @@ public final class PortableBeacon {
 	}
 
 	public static void init() {
+		CerewareSlotsApi.register(new SlotDefinition(SLOT, Component.translatable("slot.beaconsreforged.beacon"),
+			Items.BEACON, PortableBeacon::isPortableBeacon, 1, 10, () -> ModConfig.get().keepBeaconOnDeath, Identifier.fromNamespaceAndPath("beaconsreforged", "slot/beacon")));
 		UseItemCallback.EVENT.register((player, level, hand) -> {
 			ItemStack stack = player.getItemInHand(hand);
 			if (!isPortableBeacon(stack)) return InteractionResult.PASS;
@@ -81,13 +82,14 @@ public final class PortableBeacon {
 			}
 			return InteractionResult.SUCCESS;
 		});
-		ServerLivingEntityEvents.AFTER_DEATH.register((entity, source) -> {
-			if (!(entity instanceof ServerPlayer p)) return;
-			boolean keep = ModConfig.get().keepBeaconOnDeath || p.level().getGameRules().get(GameRules.KEEP_INVENTORY);
-			ItemStack equipped = getEquipped(p);
-			if (keep || equipped.isEmpty()) return;
-			p.spawnAtLocation(p.level(), equipped);
-			setEquipped(p, ItemStack.EMPTY);
+		// Migración desde 1.0.0: mover el beacon del hueco antiguo al de CereWare Slots
+		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+			ServerPlayer p = handler.getPlayer();
+			ItemStack legacy = p.getAttached(LEGACY_EQUIPPED);
+			if (legacy == null) return;
+			p.removeAttached(LEGACY_EQUIPPED);
+			if (getEquipped(p).isEmpty()) setEquipped(p, legacy);
+			else if (!p.getInventory().add(legacy)) p.spawnAtLocation(p.level(), legacy);
 		});
 		BeaconEffectTicker.init();
 	}

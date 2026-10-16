@@ -17,8 +17,6 @@
   "gui.beaconsreforged.confirm.message": "La pirámide %sx%s de %s (%s bloques) se perderá a cambio de hacer este beacon portable. No se puede deshacer.",
   "message.beaconsreforged.consumed": "Pirámide %sx%s de %s consumida. Rompe el beacon para llevártelo.",
   "message.beaconsreforged.consume_failed": "No se pudo consumir la pirámide (ha cambiado o ya no es válida).",
-  "key.beaconsreforged.open_slot": "Abrir slot de beacon",
-  "gui.beaconsreforged.slot_title": "Beacon equipado",
   "effect.beaconsreforged.luck": "Suerte",
   "effect.beaconsreforged.reach": "Alcance",
   "gui.beaconsreforged.needs_pyramid": "Requiere pirámide %sx%s",
@@ -47,5 +45,6 @@
   "config.beaconsreforged.max_levels": "Nivel máximo por poder",
   "config.beaconsreforged.no_permission": "Solo los operadores pueden cambiar la config del servidor",
   "message.beaconsreforged.config_saved": "Configuración de Beacons Reforged guardada y aplicada",
-  "message.beaconsreforged.equipped": "Beacon equipado: %s"
+  "message.beaconsreforged.equipped": "Beacon equipado: %s",
+  "slot.beaconsreforged.beacon": "Beacon"
 }

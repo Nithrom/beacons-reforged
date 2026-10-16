@@ -17,8 +17,6 @@
   "gui.beaconsreforged.confirm.message": "The %sx%s %s pyramid (%s blocks) will be lost to make this beacon portable. This cannot be undone.",
   "message.beaconsreforged.consumed": "%sx%s %s pyramid consumed. Break the beacon to take it with you.",
   "message.beaconsreforged.consume_failed": "Couldn't consume the pyramid (it changed or is no longer valid).",
-  "key.beaconsreforged.open_slot": "Open beacon slot",
-  "gui.beaconsreforged.slot_title": "Equipped beacon",
   "effect.beaconsreforged.luck": "Luck",
   "effect.beaconsreforged.reach": "Reach",
   "gui.beaconsreforged.needs_pyramid": "Requires a %sx%s pyramid",
@@ -47,5 +45,6 @@
   "config.beaconsreforged.max_levels": "Max level per power",
   "config.beaconsreforged.no_permission": "Only operators can change the server config",
   "message.beaconsreforged.config_saved": "Beacons Reforged settings saved and applied",
-  "message.beaconsreforged.equipped": "Beacon equipped: %s"
+  "message.beaconsreforged.equipped": "Beacon equipped: %s",
+  "slot.beaconsreforged.beacon": "Beacon"
 }
