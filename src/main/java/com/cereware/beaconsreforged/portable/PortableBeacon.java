@@ -65,7 +65,7 @@ public final class PortableBeacon {
 
 	public static void init() {
 		CerewareSlotsApi.register(new SlotDefinition(SLOT, Component.translatable("slot.beaconsreforged.beacon"),
-			Items.BEACON, PortableBeacon::isPortableBeacon, 1, 10, () -> ModConfig.get().keepBeaconOnDeath, Identifier.fromNamespaceAndPath("beaconsreforged", "slot/beacon")));
+			Items.BEACON, PortableBeacon::isPortableBeacon, 1, 10, () -> ModConfig.get().keepBeaconOnDeath));
 		UseItemCallback.EVENT.register((player, level, hand) -> {
 			ItemStack stack = player.getItemInHand(hand);
 			if (!isPortableBeacon(stack)) return InteractionResult.PASS;
