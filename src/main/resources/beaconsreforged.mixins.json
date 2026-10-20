@@ -7,7 +7,7 @@
 		"BeaconMenuAccessor",
 		"ApplyBonusCountMixin",
 		"EnchantmentHelperMixin",
-		"PlayerMixin"
+		"BlockBehaviourMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
